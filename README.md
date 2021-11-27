@@ -31,11 +31,11 @@ Place the Alexa **config.json in** file in the  **/home/pi/avs-device-sdk-pi/Ale
 
 4. Make the installer executable using:
 ```
-sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/installer.sh  
+sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/alexa-installer.sh  
 ```    
 5. Install the assistant using the following:         
 ```
-sudo /home/pi/avs-device-sdk-pi/scripts/installer.sh  
+sudo /home/pi/avs-device-sdk-pi/scripts/alexa-installer.sh  
 ```      
 6. Start the Alexa SampleApp and Authorize the first time it starts.    
 7. Headover to Picovoice's console and generate the access key.   
