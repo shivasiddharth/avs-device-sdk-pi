@@ -6,10 +6,10 @@
 
 *******************************************************************************************************************************
 ### Note:
-**What works:   **    
+**What works:**    
 1. Picovoice wakewording.   
 
-**WIP:  **    
+**WIP:**    
 1. Indicators.   
 2. Options to switch between pushbutton and Picovoice triggers.     
 3. Autostart on boot.    
