@@ -25,7 +25,7 @@ https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile
 
 
 ***************************************************************
-**Setup Amazon Alexa, Google Assistant or Both**     
+**Setup Amazon Alexa**     
 ***************************************************************
 1. Clone the git using:
 ```
