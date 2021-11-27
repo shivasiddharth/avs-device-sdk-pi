@@ -60,6 +60,12 @@ DEVICE_DESCRIPTION=${DEVICE_DESCRIPTION:-"RaspberryPi"}
 
 GSTREAMER_AUDIO_SINK="autoaudiosink"
 
+# Defaults for HSM integration
+ACSDK_PKCS11_MODULE=
+ACSDK_PKCS11_KEY=
+ACSDK_PKCS11_PIN=
+ACSDK_PKCS11_TOKEN=
+
 build_port_audio() {
   # build port audio
   echo
@@ -120,7 +126,7 @@ if [ ! -f "$CONFIG_JSON_FILE" ]; then
 fi
 shift 1
 
-OPTIONS=s:a:m:d:h
+OPTIONS=s:a:m:d:hp:k:i:t:
 while getopts "$OPTIONS" opt ; do
     case $opt in
         s )
@@ -144,6 +150,18 @@ while getopts "$OPTIONS" opt ; do
             show_help
             exit 1
             ;;
+        p )
+            ACSDK_PKCS11_MODULE="$OPTARG"
+            ;;
+        k )
+            ACSDK_PKCS11_KEY="$OPTARG"
+            ;;
+        i )
+            ACSDK_PKCS11_PIN="$OPTARG"
+            ;;
+        t )
+            ACSDK_PKCS11_TOKEN="$OPTARG"
+            ;;
     esac
 done
 
@@ -151,6 +169,49 @@ if [[ ! "$DEVICE_SERIAL_NUMBER" =~ [0-9a-zA-Z_]+ ]]; then
    echo 'Device serial number is invalid!'
    exit 1
 fi
+
+if [ -z "$ACSDK_PKCS11_MODULE" ] && [ -z "$ACSDK_PKCS11_KEY" ] && [ -z "$ACSDK_PKCS11_PIN" ] && [ -z "$ACSDK_PKCS11_TOKEN" ]
+then
+  echo "PKCS11 parameters are not specified. Hardware security module integration is disabled."
+  ACSDK_PKCS11=OFF
+  ACSDK_PKCS11_MODULE=__undefined__
+  ACSDK_PKCS11_KEY=__undefined__
+  ACSDK_PKCS11_PIN=__undefined__
+  ACSDK_PKCS11_TOKEN=__undefined__
+else
+  echo "PKCS11 parameters are specified. Hardware security module integration is enabled."
+  ACSDK_PKCS11=ON
+
+  if [ -z "$ACSDK_PKCS11_MODULE" ]
+  then
+    echo "PKCS11 module path is not specified, but other PKCS11 parameters are present."
+    exit 1
+  elif [ ! -f "$ACSDK_PKCS11_MODULE" ]
+  then
+    echo "PKCS11 module path is specified, but library is not found."
+    exit 1
+  fi
+
+  if [ -z "$ACSDK_PKCS11_KEY" ]
+  then
+    echo "PKCS11 key name is not specified, but other PKCS11 parameters are present."
+    exit 1
+  fi
+
+  if [ -z "$ACSDK_PKCS11_PIN" ]
+  then
+    echo "PKCS11 pin is not specified, but other PKCS11 parameters are present."
+    exit 1
+  fi
+
+  if [ -z "$ACSDK_PKCS11_TOKEN" ]
+  then
+    echo "PKCS11 token name is not specified, but other PKCS11 parameters are present."
+    exit 1
+  fi
+
+fi
+
 
 # The target platform for the build.
 PLATFORM=${PLATFORM:-$(get_platform)}
@@ -254,37 +315,35 @@ then
   cd $BUILD_PATH
   cmake "$SOURCE_PATH/avs-device-sdk" \
       -DCMAKE_BUILD_TYPE=DEBUG \
+      -DPKCS11=$ACSDK_PKCS11 \
       "${CMAKE_PLATFORM_SPECIFIC[@]}"
 
   cd $BUILD_PATH
   make SampleApp -j2
+  make PreviewAlexaClient -j2
+  make all -j2
 
 else
   cd $BUILD_PATH
   make SampleApp -j2
+  make PreviewAlexaClient -j2
+  make all -j
 fi
 
 echo
 echo "==============> SAVING CONFIGURATION FILE =============="
 echo
 
-# Create configuration file with audioSink configuration at the beginning of the file
-cat << EOF > "$OUTPUT_CONFIG_FILE"
- {
-    "gstreamerMediaPlayer":{
-        "audioSink":"$GSTREAMER_AUDIO_SINK"
-    },
-EOF
+GSTREAMER_CONFIG="{\\n    \"gstreamerMediaPlayer\":{\\n        \"audioSink\":\"$GSTREAMER_AUDIO_SINK\"\\n    },"
 
 cd $INSTALL_BASE
 bash genConfig.sh config.json $DEVICE_SERIAL_NUMBER $CONFIG_DB_PATH $SOURCE_PATH/avs-device-sdk $TEMP_CONFIG_FILE \
-  -DSDK_CONFIG_MANUFACTURER_NAME="$DEVICE_MANUFACTURER_NAME" -DSDK_CONFIG_DEVICE_DESCRIPTION="$DEVICE_DESCRIPTION"
+  -DSDK_CONFIG_MANUFACTURER_NAME="$DEVICE_MANUFACTURER_NAME" -DSDK_CONFIG_DEVICE_DESCRIPTION="$DEVICE_DESCRIPTION" \
+  -DPKCS11_MODULE_PATH=$ACSDK_PKCS11_MODULE -DPKCS11_TOKEN_NAME=$ACSDK_PKCS11_TOKEN \
+  -DPKCS11_USER_PIN=$ACSDK_PKCS11_PIN -DPKCS11_KEY_NAME=$ACSDK_PKCS11_KEY
 
-# Delete first line from temp file to remove opening bracket
-sed -i -e "1d" $TEMP_CONFIG_FILE
-
-# Append temp file to configuration file
-cat $TEMP_CONFIG_FILE >> $OUTPUT_CONFIG_FILE
+# Replace the first opening bracket in the AlexaClientSDKConfig.json file with GSTREAMER_CONFIG variable.
+awk -v config="$GSTREAMER_CONFIG" 'NR==1,/{/{sub(/{/,config)}1' $TEMP_CONFIG_FILE > $OUTPUT_CONFIG_FILE
 
 # Delete temp file
 rm $TEMP_CONFIG_FILE
