@@ -2,7 +2,7 @@
 ## Scripts to enable Alexa voice activation using Picovoice Porcupine
 
 *******************************************************************************************************************************
-### **If you like the work, find it useful and if you would like to get me a :coffee: :smile:** [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GH3YDCHZ36QN)  
+### **If you like the work, find it useful and if you would like to get me a :coffee: :smile:** [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://paypal.me/sidsclass?country.x=IE&locale.x=en_US)  
 
 *******************************************************************************************************************************
 1. Follow Amazon's official setup guide from [here](https://developer.amazon.com/en-US/docs/alexa/avs-device-sdk/raspberry-pi.html) for the installation procedure.                                                                                                                                                                                                        
