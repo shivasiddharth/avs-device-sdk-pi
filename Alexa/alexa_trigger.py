@@ -19,7 +19,7 @@ import socket
 import pvporcupine
 from pvrecorder import PvRecorder
 
-SOCKET_PORT = 8080
+SOCKET_PORT = 5000
 
 class PorcupineDemo(Thread):
     """
@@ -69,7 +69,7 @@ class PorcupineDemo(Thread):
          occurrences of the wake word(s). It prints the time of detection for each occurrence and the wake word.
          """
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect(('localhost', SOCKET_PORT))        
+        s.connect(('localhost', SOCKET_PORT))
         keywords = list()
         for x in self._keyword_paths:
             keyword_phrase_part = os.path.basename(x).replace('.ppn', '').split('_')
@@ -104,7 +104,7 @@ class PorcupineDemo(Thread):
             print('}')
 
             while True:
-                
+
                 pcm = recorder.read()
 
                 if wav_file is not None:
@@ -117,7 +117,7 @@ class PorcupineDemo(Thread):
                     s.close()
                     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     s.connect(('localhost', SOCKET_PORT))
-                    
+
 
         except KeyboardInterrupt:
             print('Stopping ...')
