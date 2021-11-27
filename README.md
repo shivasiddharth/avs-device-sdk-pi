@@ -8,10 +8,10 @@
 #### **What works:**    
 1. Picovoice wakewording.   
 
-#### **WIP:**    
+#### **Work in progress:**    
 1. Indicators.   
 2. Options to switch between Pushbutton and Picovoice triggers.     
-3. Autostart on boot.    
+3. Auto-start on boot.    
 
 
 ## **Setup Amazon Alexa**     
