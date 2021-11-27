@@ -38,7 +38,7 @@ Place the Alexa **config.json in** file in the  **/home/pi/avs-device-sdk-pi/Ale
 ```
 sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```    
-3. Install the assistantusing the following:         
+3. Install the assistant using the following:         
 ```
 sudo /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```      
