@@ -50,28 +50,11 @@ echo ""
 echo "Updating and Upgrading System........."
 sudo apt-get update
 echo ""
-echo "Installing Git........"
-sudo apt-get install -y git
-echo ""
-echo "Installing pulseaudio....."
-sudo apt-get install pulseaudio
-echo ""
-echo "Installing screen...."
-sudo apt-get install screen
-echo ""
+
 echo "Changing username in service files........."
 sed -i 's/__USER__/'${USER}'/g' /home/${USER}/avs-device-sdk-pi/systemd/alexa.service
 echo ""
 echo ""
-echo "Installing Basic Requisites........."
-sudo pip3 install pyyaml
-pip3 install pyyaml
-sudo pip3 install spidev
-pip3 install spidev
-sudo pip3 install gpiozero
-pip3 install gpiozero
-sudo pip3 install numpy
-pip3 install numpy
 echo ""
 echo ""
 echo "Select your audio and mic configuration: "

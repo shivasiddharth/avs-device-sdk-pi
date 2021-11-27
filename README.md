@@ -12,7 +12,7 @@
 
 **WIP:**    
 1. Indicators.   
-2. Options to switch between pushbutton and Picovoice triggers.     
+2. Options to switch between Pushbutton and Picovoice triggers.     
 3. Autostart on boot.    
 
 ***************************************************************
@@ -41,5 +41,5 @@ sudo /home/pi/avs-device-sdk-pi/scripts/alexa-installer.sh
 7. Headover to Picovoice's console and generate the access key.   
 8. For Picovoice porcupine wakewording, start the SampleApp first and then launch the trigger using:   
 ```    
-python3 /home/pi/avs-device-sdk-pi/Alexa/alexa_trigger.py --access_key ${ACCESS_KEY} --keyword_paths ${KEYWORD_PATH_ONE}
-
+python3 /home/pi/avs-device-sdk-pi/Alexa/alexa_picovoice_trigger.py --access_key ${ACCESS_KEY} --keyword_paths ${KEYWORD_PATH_ONE}
+```    
