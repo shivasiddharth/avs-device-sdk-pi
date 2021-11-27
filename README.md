@@ -20,7 +20,7 @@
 ***************************************************************
 1. Clone the git using:
 ```
-git clone https://github.com/shivasiddharth/avs-device-sdk-pi  
+git clone https://github.com/shivasiddharth/avs-device-sdk-pi  -b main    
 ```    
 2. Create a security profile for alexa-avs-sample-app if you already don't have one.  
 https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile  
