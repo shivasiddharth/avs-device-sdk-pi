@@ -38,15 +38,9 @@ Place the Alexa **config.json in** file in the  **/home/pi/avs-device-sdk-pi/Ale
 ```
 sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```    
-3. Install the assistant/assistants using the following. This is an interactive script, so just follow the onscreen instructions:
+3. Install the assistantusing the following:         
 ```
 sudo /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```      
 
-4. Manually start Alexa first:    
 
-Open a terminal and run the following commands:  
-```
-sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/service-installer.sh
-sudo /home/pi/avs-device-sdk-pi/scripts/service-installer.sh  
-```
