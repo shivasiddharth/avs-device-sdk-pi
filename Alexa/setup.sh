@@ -18,12 +18,13 @@
 set -o errexit  # Exit the script if any statement fails.
 set -o nounset  # Exit the script if any uninitialized variable is used.
 
-CLONE_URL="https://github.com/shivasiddharth/avs-device-sdk -b shivasiddharth-Assistants-Pi"
+CLONE_URL="https://github.com/shivasiddharth/avs-device-sdk"
 
 PORT_AUDIO_FILE="pa_stable_v190600_20161030.tgz"
 PORT_AUDIO_DOWNLOAD_URL="http://www.portaudio.com/archives/$PORT_AUDIO_FILE"
 
-TEST_MODEL_DOWNLOAD="https://github.com/Sensory/alexa-rpi/blob/master/models/spot-alexa-rpi-31000.snsr"
+CURL_VER=7.67.0
+CURL_DOWNLOAD_URL="https://github.com/curl/curl/releases/download/curl-7_67_0/curl-${CURL_VER}.tar.gz"
 
 BUILD_TESTS=${BUILD_TESTS:-'true'}
 
@@ -41,8 +42,6 @@ BUILD_PATH="$INSTALL_BASE/$BUILD_FOLDER"
 SOUNDS_PATH="$INSTALL_BASE/$SOUNDS_FOLDER"
 DB_PATH="$INSTALL_BASE/$DB_FOLDER"
 CONFIG_DB_PATH="$DB_PATH"
-UNIT_TEST_MODEL_PATH="$INSTALL_BASE/avs-device-sdk/KWD/inputs/SensoryModels/"
-UNIT_TEST_MODEL="$THIRD_PARTY_PATH/alexa-rpi/models/spot-alexa-rpi-31000.snsr"
 INPUT_CONFIG_FILE="$SOURCE_PATH/avs-device-sdk/Integration/AlexaClientSDKConfig.json"
 OUTPUT_CONFIG_FILE="$BUILD_PATH/Integration/AlexaClientSDKConfig.json"
 TEMP_CONFIG_FILE="$BUILD_PATH/Integration/tmp_AlexaClientSDKConfig.json"
@@ -54,10 +53,10 @@ ANDROID_CONFIG_FILE=""
 DEVICE_SERIAL_NUMBER="123456"
 
 # Default device manufacturer name
-DEVICE_MANUFACTURER_NAME=${DEVICE_MANUFACTURER_NAME:-"Test Manufacturer"}
+DEVICE_MANUFACTURER_NAME=${DEVICE_MANUFACTURER_NAME:-"RaspberryPi"}
 
 # Default device description
-DEVICE_DESCRIPTION=${DEVICE_DESCRIPTION:-"Test Device"}
+DEVICE_DESCRIPTION=${DEVICE_DESCRIPTION:-"RaspberryPi"}
 
 GSTREAMER_AUDIO_SINK="autoaudiosink"
 

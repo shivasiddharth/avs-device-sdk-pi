@@ -1,5 +1,5 @@
 #
-# Copyright 2018-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License").
 # You may not use this file except in compliance with the License.
@@ -20,53 +20,64 @@ fi
 
 
 START_SCRIPT="$INSTALL_BASE/startsample.sh"
-CMAKE_PLATFORM_SPECIFIC=(-DSENSORY_KEY_WORD_DETECTOR=ON \
-    -DGSTREAMER_MEDIA_PLAYER=ON -DPORTAUDIO=ON \
+START_PREVIEW_SCRIPT="$INSTALL_BASE/startpreview.sh"
+CMAKE_PLATFORM_SPECIFIC=(-DGSTREAMER_MEDIA_PLAYER=ON \
+    -DPORTAUDIO=ON \
     -DPORTAUDIO_LIB_PATH="$THIRD_PARTY_PATH/portaudio/lib/.libs/libportaudio.$LIB_SUFFIX" \
     -DPORTAUDIO_INCLUDE_DIR="$THIRD_PARTY_PATH/portaudio/include" \
-    -DSENSORY_KEY_WORD_DETECTOR_LIB_PATH=$THIRD_PARTY_PATH/alexa-rpi/lib/libsnsr.a \
-    -DSENSORY_KEY_WORD_DETECTOR_INCLUDE_DIR=$THIRD_PARTY_PATH/alexa-rpi/include)
+    -DCURL_INCLUDE_DIR=${THIRD_PARTY_PATH}/curl-${CURL_VER}/include \
+    -DCURL_LIBRARY=${THIRD_PARTY_PATH}/curl-${CURL_VER}/lib/.libs/libcurl.so)
 
 GSTREAMER_AUDIO_SINK="alsasink"
 
 install_dependencies() {
   sudo apt-get update
-  sudo apt-get -y install git gcc libdbus-glib-1-dev cmake build-essential libsqlite3-dev libcurl4-openssl-dev libssl-dev libfaad-dev libsoup2.4-dev libgcrypt20-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-good libasound2-dev sox gedit vim python3-pip doxygen
-  pip install flask commentjson
+  sudo apt-get -y install git gcc cmake build-essential libsqlite3-dev libssl-dev libnghttp2-dev libfaad-dev libsoup2.4-dev libgcrypt20-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-good libasound2-dev sox gedit vim
 }
 
 run_os_specifics() {
   build_port_audio
-  build_kwd_engine
+  build_curl
+  echo
+  echo "==============> TAP-TO-TALK IS ENABLED =============="
+  echo
+  configure_sound
 }
 
-build_kwd_engine() {
-  #get sensory and build
+
+build_curl() {
+  #get curl and build
   echo
-  echo "==============> CLONING AND BUILDING SENSORY =============="
+  echo "==============> CLONING AND BUILDING CURL =============="
   echo
 
   cd $THIRD_PARTY_PATH
-  git clone git://github.com/Sensory/alexa-rpi.git
-  bash ./alexa-rpi/bin/license.sh
+  wget ${CURL_DOWNLOAD_URL}
+  tar xzf curl-${CURL_VER}.tar.gz
+  cd curl-${CURL_VER}
+  ./configure --with-nghttp2 --prefix=${THIRD_PARTY_PATH}/curl-${CURL_VER} --with-ssl
+  make
 }
 
 generate_start_script() {
   cat << EOF > "$START_SCRIPT"
   cd "$BUILD_PATH/SampleApp/src"
 
-  ./SampleApp "$OUTPUT_CONFIG_FILE" "$THIRD_PARTY_PATH/alexa-rpi/models" INFO
+  PA_ALSA_PLUGHW=1 ./SampleApp "$OUTPUT_CONFIG_FILE" DEBUG9
+EOF
+
+  cat << EOF > "$START_PREVIEW_SCRIPT"
+  cd "$BUILD_PATH/applications/acsdkPreviewAlexaClient/src"
+
+  PA_ALSA_PLUGHW=1 ./PreviewAlexaClient "$OUTPUT_CONFIG_FILE" DEBUG9
 EOF
 }
-
 
 generate_test_script() {
   cat << EOF > "${TEST_SCRIPT}"
   echo
   echo "==============> BUILDING Tests =============="
   echo
-  mkdir -p "$UNIT_TEST_MODEL_PATH"
-  cp "$UNIT_TEST_MODEL" "$UNIT_TEST_MODEL_PATH"
   cd $BUILD_PATH
   make all test -j2
 EOF
