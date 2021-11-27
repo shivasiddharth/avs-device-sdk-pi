@@ -17,7 +17,7 @@
 ## **Setup Amazon Alexa**     
 1. Clone the git using:
 ```
-git clone https://github.com/shivasiddharth/avs-device-sdk-pi  -b main    
+git clone https://github.com/shivasiddharth/avs-device-sdk-pi  -b Voice-Activated-Alexa-Pi         
 ```    
 2. Create a security profile for alexa-avs-sample-app if you already don't have one.  
 https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile  
