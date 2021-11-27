@@ -13,9 +13,8 @@
 2. Options to switch between Pushbutton and Picovoice triggers.     
 3. Autostart on boot.    
 
-***************************************************************
+
 ## **Setup Amazon Alexa**     
-***************************************************************
 1. Clone the git using:
 ```
 git clone https://github.com/shivasiddharth/avs-device-sdk-pi  -b main    
@@ -41,3 +40,29 @@ sudo /home/pi/avs-device-sdk-pi/scripts/alexa-installer.sh
 ```    
 python3 /home/pi/avs-device-sdk-pi/Alexa/alexa_picovoice_trigger.py --access_key ${ACCESS_KEY} --keyword_paths ${KEYWORD_PATH_ONE}
 ```    
+
+## Programable Actions via Sockets or Pushbutton     
+|Action | Character|
+|-------|----------|
+|HOLD | 'h'|
+|TAP | 't'|
+|QUIT | 'q'|
+|INFO | 'i'|
+|MIC_TOGGLE | 'm'|
+|STOP | 's'|
+|PLAY | '1'|
+|PAUSE | '2'|
+|NEXT | '3'|
+|PREVIOUS | '4'|
+|SKIP_FORWARD | '5'|
+|SKIP_BACKWARD | '6'|
+|SHUFFLE | '7'|
+|LOOP | '8'|
+|REPEAT | '9'|
+|THUMBS_UP | '+'|
+|THUMBS_DOWN | '-'|
+|SETTINGS | 'c'|
+|SPEAKER_CONTROL | 'p'|
+|FIRMWARE_VERSION | 'f'|
+|RESET | 'k'|
+|REAUTHORIZE | 'z'|
