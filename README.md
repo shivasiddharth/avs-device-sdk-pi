@@ -6,10 +6,10 @@
 
 *******************************************************************************************************************************
 ### Note:
-**What works:   **    
+**What works:**    
 1. Picovoice wakewording.   
 
-**WIP:  **    
+**WIP:**    
 1. Indicators.   
 2. Options to switch between pushbutton and Picovoice triggers.     
 3. Autostart on boot.    
@@ -25,7 +25,7 @@ https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile
 
 
 ***************************************************************
-**Setup Amazon Alexa, Google Assistant or Both**     
+**Setup Amazon Alexa**     
 ***************************************************************
 1. Clone the git using:
 ```
@@ -38,15 +38,9 @@ Place the Alexa **config.json in** file in the  **/home/pi/avs-device-sdk-pi/Ale
 ```
 sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```    
-3. Install the assistant/assistants using the following. This is an interactive script, so just follow the onscreen instructions:
+3. Install the assistant using the following:         
 ```
 sudo /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```      
 
-4. Manually start Alexa first:    
 
-Open a terminal and run the following commands:  
-```
-sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/service-installer.sh
-sudo /home/pi/avs-device-sdk-pi/scripts/service-installer.sh  
-```
