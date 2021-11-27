@@ -13,16 +13,6 @@
 1. Indicators.   
 2. Options to switch between pushbutton and Picovoice triggers.     
 3. Autostart on boot.    
-****************************************************************
-**Before Starting the setup**
-****************************************************************
-
-**For Amazon Alexa**  
-1. Create a security profile for alexa-avs-sample-app if you already don't have one.  
-https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile  
-
-2. Download the **"config.json"** file.
-
 
 ***************************************************************
 **Setup Amazon Alexa**     
@@ -31,20 +21,24 @@ https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile
 ```
 git clone https://github.com/shivasiddharth/avs-device-sdk-pi  
 ```    
+2. Create a security profile for alexa-avs-sample-app if you already don't have one.  
+https://github.com/alexa/avs-device-sdk/wiki/Create-Security-Profile  
+
+3. Download the **"config.json"** file.
 **DO NOT RENAME THE CREDENTIALS FILEs**     
 Place the Alexa **config.json in** file in the  **/home/pi/avs-device-sdk-pi/Alexa** directory.        
 
-2. Make the installer executable using:
+4. Make the installer executable using:
 ```
 sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```    
-3. Install the assistant using the following:         
+5. Install the assistant using the following:         
 ```
 sudo /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```      
-4. Start the Alexa SampleApp and Authorize the first time it starts.    
-5. Headover to Picovoice's console and generate the access key.   
-6. For Picovoice porcupine wakewording, start the SampleApp first and then launch the trigger using:   
+6. Start the Alexa SampleApp and Authorize the first time it starts.    
+7. Headover to Picovoice's console and generate the access key.   
+8. For Picovoice porcupine wakewording, start the SampleApp first and then launch the trigger using:   
 ```    
 python3 /home/pi/avs-device-sdk-pi/Alexa/alexa_trigger.py --access_key ${ACCESS_KEY} --keyword_paths ${KEYWORD_PATH_ONE}
 
