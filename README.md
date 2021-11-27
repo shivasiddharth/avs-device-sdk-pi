@@ -42,5 +42,9 @@ sudo chmod +x /home/pi/avs-device-sdk-pi/scripts/installer.sh
 ```
 sudo /home/pi/avs-device-sdk-pi/scripts/installer.sh  
 ```      
-
+4. Start the Alexa SampleApp and Authorize the first time it starts.    
+5. Headover to Picovoice's console and generate the access key.   
+6. For Picovoice porcupine wakewording, start the SampleApp first and then launch the trigger using:   
+```    
+python3 /home/pi/avs-device-sdk-pi/Alexa/alexa_trigger.py --access_key ${ACCESS_KEY} --keyword_paths ${KEYWORD_PATH_ONE}
 
