@@ -14,14 +14,14 @@ pip3 install pvporcupine==2.0.0
 pip3 install pvrecorder==1.0.2    
 ```       
 3. Download the **alexa_picovoice_trigger.py** file from this git.    
-4. Create the Access Key in Picovoice console and download the keyword from Picovoice porcupine git.     
+4. Create the Access Key in Picovoice console and download the keyword from [Picovoice Porcupine git](https://github.com/Picovoice/porcupine/blob/master/resources/keyword_files/raspberry-pi/alexa_raspberry-pi.ppn).     
 5. For voice activation, open a terminal and enter the following:     
 ```      
 wmctrl -l    
 ```    
 Note the id value of the terminal in the extreme left.   
 6. Start the Alexa's Startsample.sh script from the same terminal.   
-7. Open the alexa_picovoice_trigger.py script and change the id value given in https://github.com/shivasiddharth/avs-device-sdk-pi/blob/65858c8e879a08615ee4177f6b0f0288c53c1592/alexa_picovoice_trigger.py#L115 with the id value noted.      
+7. Open the alexa_picovoice_trigger.py script and change the id value given [here](https://github.com/shivasiddharth/avs-device-sdk-pi/blob/65858c8e879a08615ee4177f6b0f0288c53c1592/alexa_picovoice_trigger.py#L115) with the id value noted.      
 7. Start the Picovoice porcupine trigger using the following syntax:    
 ```    
 python3 /home/pi/alexa_picovoice_trigger.py --access_key ${ACCESS_KEY} --keyword_paths ${KEYWORD_PATH_ONE}       
