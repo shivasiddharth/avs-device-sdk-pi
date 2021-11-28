@@ -10,8 +10,8 @@
 ```     
 sudo apt-get update     
 sudo apt-get install python3-pip wmctrl xdotool   
-pip3 install pvporcupine==2.0.0     
-pip3 install pvrecorder==1.0.2    
+pip3 install pvporcupine    
+pip3 install pvrecorder    
 ```       
 3. Download the **alexa_picovoice_trigger.py** file from this git.    
 4. Create the Access Key in Picovoice console and download the keyword from [Picovoice Porcupine git](https://github.com/Picovoice/porcupine/blob/master/resources/keyword_files/raspberry-pi/alexa_raspberry-pi.ppn).     
